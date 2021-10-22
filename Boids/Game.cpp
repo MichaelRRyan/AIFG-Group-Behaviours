@@ -11,8 +11,9 @@ using namespace std;
 /// </summary>
 Game::Game() :
 	m_boidShape{ 8.0f, 3u },
-	m_predatorShape{ 10.0f, 3u
-}
+	m_predatorShape{ 10.0f, 3u },
+	action{ Action::Flock }
+
 // Tying to create window using desktop values did not work here.
 // So used the Create method inside the constructor/
 // sf::RenderWindow m_window( sf::VideoMode(desktop.width - 100, desktop.height - 100, desktop.bitsPerPixel), "Flocking", sf::Style::None );
@@ -120,8 +121,18 @@ void Game::processKeys(sf::Event t_event)
 	if (sf::Keyboard::Escape == t_event.key.code)
 		m_exitGame = true;
 	else if (sf::Keyboard::Space == t_event.key.code)
-		action = (action == "flock") ? "swarm" : "flock";
-
+	{
+		if (action == Action::Flock)
+		{
+			action = Action::Swarm;
+			m_actionMessage.setString("Swarm");
+		}
+		else
+		{
+			action = Action::Flock;
+			m_actionMessage.setString("Flock");
+		}
+	}
 }
 
 /// <summary>
@@ -150,17 +161,13 @@ void Game::update(sf::Time t_deltaTime)
 {
 
 	//Applies the three rules to each boid in the flock and changes them accordingly.
-	if (action == "flock")
+	if (action == Action::Flock)
 		flock.flocking();
 	else
 		flock.swarming();
 
 	if (m_exitGame)
 		m_window.close();
-	
-	if (m_actionMessage.getString() != action)
-		m_actionMessage.setString(action);
-
 }
 
 /// <summary>
