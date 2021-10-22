@@ -107,11 +107,9 @@ float Pvector::dotProduct(Pvector v)
 }
 
 //Calculates magnitude of referenced object
-float Pvector::magnitude()
+float const Pvector::magnitude() const
 {
-	float mag = sqrt(x * x + y * y); //Magnitude of vector formula
-
-	return mag;
+	return sqrt(x * x + y * y); //Magnitude of vector formula
 }
 
 void Pvector::setMagnitude(float x)
@@ -162,4 +160,26 @@ Pvector Pvector::copy(Pvector v)
 	Pvector copy(v.x, v.y);
 
 	return copy;
+}
+
+Pvector const Pvector::operator-(Pvector const & t_right) const
+{
+	return { x - t_right.x, y - t_right.y };
+}
+
+Pvector const Pvector::operator*(float const& t_right) const
+{
+	return { x * t_right, y * t_right };
+}
+
+Pvector const Pvector::operator/(float const& t_right) const
+{
+	return { x / t_right, y / t_right };
+}
+
+Pvector const Pvector::operator+=(Pvector const& t_right)
+{
+	x = x + t_right.x;
+	y = y + t_right.y;
+	return *this;
 }

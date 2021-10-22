@@ -57,12 +57,17 @@ public:
 	//Calculating Functions
 	float distance(Pvector v);
 	float dotProduct(Pvector v);
-	float magnitude();
+	float const magnitude() const;
 	void setMagnitude(float x);
 	float angleBetween(Pvector v);
 	void normalize();
 
 	Pvector copy(Pvector v);	
+
+	Pvector const operator-(Pvector const& t_right) const;
+	Pvector const operator*(float const& t_right) const;
+	Pvector const operator/(float const& t_right) const;
+	Pvector const operator+=(Pvector const & t_right);
 };
 
 #endif

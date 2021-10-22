@@ -1,11 +1,12 @@
+#ifndef FLOCK_H_
+#define FLOCK_H_
+
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include "Boid.h"
 
 using namespace std;
-
-#ifndef FLOCK_H_
-#define FLOCK_H_
 
 /*
 Brief description of Flock Class:
@@ -20,10 +21,11 @@ private:
 
 public:
 	//Public Variables
-	vector<Boid> flock;
+	vector<Boid *> m_boids;
 
 	//Constructors
 	Flock() {}
+	~Flock();
 /*
 Commented out for now, since including destructors causes g++ to spit back
 errors. 
@@ -37,7 +39,8 @@ errors.
 	int getSize();
 	Boid getBoid(int i);
 	//Mutator Functions
-	void addBoid(Boid b);
+	void addBoid(sf::Vector2f const& t_position, bool predator = false);
+	void addBoid(Boid * b);
 	void flocking();
 	void swarming();
 
